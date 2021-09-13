@@ -2,10 +2,10 @@
   "meta": {
     "title": "Translearn",
     "titleTemplate": "%s",
-    "description": "Made with ❤ by Stackrole",
+    "description": "",
     "siteUrl": "https://translearn.ac.nz",
-    "image": "/assets/asset-2-4x.png",
-    "iconimage": "/assets/asset-2-2x.png",
+    "image": "/assets/asset-3-2x.png",
+    "iconimage": "/assets/asset-4.png",
     "twitterUsername": ""
   },
   "ga": "UA-XXXXXXXXX-X"
