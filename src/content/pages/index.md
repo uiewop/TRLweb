@@ -1,12 +1,11 @@
 ---
 template: index-page
 slug: /
-title: Wyatt Morriss
-tagline: Graphic Designer
-featuredImage: /assets/toa-heftiba-0rlfirsdvzu-unsplash.jpg
+title: Translearn
+tagline: Supporting NZ local education providers
+featuredImage: /assets/asset-5-4x.png
 cta:
-  ctaText: Know more
-  ctaLink: /about
+  ctaText: Know more about Translearn
+  ctaLink: /hello-from-translearn
 ---
-
-He is a award winning gaming graphic designer, based in sunny side of California. Working as Principal designer at Bethesda
+We are here to help you move teaching to cloud.
