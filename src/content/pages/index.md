@@ -3,9 +3,9 @@ template: index-page
 slug: /
 title: Translearn
 tagline: Supporting NZ local education providers
-featuredImage: /assets/asset-5-4x.png
+featuredImage: /assets/asset-5-2x.png
 cta:
-  ctaText: Know more about Translearn
+  ctaText: Know more
   ctaLink: /hello-from-translearn
 ---
 We are here to help you move teaching to cloud.
