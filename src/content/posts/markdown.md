@@ -4,7 +4,7 @@ title: Membership
 slug: /Membership
 date: 2021-09-14 22:37
 description: "How to become a member and find members-only posts and events. "
-featuredImage: ""
+featuredImage: /assets/cupcake.jpg
 ---
 # Membership
 
