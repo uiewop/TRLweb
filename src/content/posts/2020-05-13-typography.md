@@ -14,4 +14,6 @@ I guess everyone knows [Github](https://github.com/). It is our platform to host
 
 # **Membership management**
 
-[JOIN IT](https://www.joinit.org/) is our membership management software. We also publish our membership options, member-only posts and events in our [Profile info page](https://www.joinit.org/o/translearn), powered by JOIN IT.
+[JOIN IT](https://www.joinit.org/) is our membership management software. We also publish our membership options, member-only posts and events in our [Profile info page](https://www.joinit.org/o/translearn), powered by JOIN IT. 
+
+Thanks all for making the launch of our education support service so timely.
