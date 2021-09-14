@@ -3,7 +3,7 @@ template: index-page
 slug: /
 title: Translearn
 tagline: Supporting NZ local education providers
-featuredImage: /assets/asset-1.jpg
+featuredImage: /assets/trl-home.jpg
 cta:
   ctaText: Know more
   ctaLink: /hello-from-translearn
