@@ -4,7 +4,7 @@ title: Hello from Translearn
 slug: /hello-from-translearn
 date: 2021-09-14 01:20
 description: Who are we, and what do we do?
-featuredImage: /assets/asset-10.jpg
+featuredImage: /assets/asset-11.jpg
 ---
 # **Kia Ora!**
 
