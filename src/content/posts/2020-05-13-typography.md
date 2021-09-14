@@ -4,7 +4,7 @@ title: How did we build this service to support education?
 slug: /How-did-we-build-this-service-to-support-education
 date: 2021-09-14 16:26
 description: The tools we used to present Translearn and engage our Edu-Tech community.
-featuredImage: /assets/how-to-build.jpg
+featuredImage: /assets/builder.jpg
 ---
 We would like to share how did we build up our service online and take the change to acknowledge the people and team created the tools to enable us moving up so quickly. 
 
