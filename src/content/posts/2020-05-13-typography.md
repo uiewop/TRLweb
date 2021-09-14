@@ -6,7 +6,7 @@ date: 2021-09-14 16:26
 description: The tools we used to present Translearn and engage our Edu-Tech community.
 featuredImage: /assets/builder.jpg
 ---
-We would like to share how did we build up our service online and take the chance to acknowledge the people and team created the tools to enable us moving up so quickly. 
+We would like to share how did we build up our service online and take the chance to acknowledge the people and teams created the tools to enable us moving up so quickly. 
 
 # Online presence
 
