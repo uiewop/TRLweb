@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "@gatsby-contrib/gatsby-plugin-elasticlunr-search": "^3.0.2",
+    "@mdx-js/react": "^3.1.1",
     "@theme-ui/color": "^0.17.2",
+    "@theme-ui/mdx": "^0.17.2",
     "gatsby": "^5.15.0",
     "gatsby-plugin-google-analytics": "^5.15.0",
     "gatsby-plugin-image": "^3.15.0",
