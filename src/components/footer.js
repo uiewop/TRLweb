@@ -12,7 +12,7 @@ const Footer = () => (
   >
     <div className="container">
       <p>
-        © Translearn 2021
+        © Translearn 2025
       </p>
     </div>
   </footer>
