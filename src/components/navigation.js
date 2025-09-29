@@ -19,6 +19,10 @@ const MenuItems = [
     title: "Blog",
   },
   {
+    path: "/weka",
+    title: "Weka",
+  },
+  {
     path: "/contact",
     title: "Contact",
   },
