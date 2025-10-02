@@ -23,6 +23,10 @@ const MenuItems = [
     title: "Weka",
   },
   {
+    path: "/decision-tree",
+    title: "Decision Tree",
+  },
+  {
     path: "/contact",
     title: "Contact",
   },
