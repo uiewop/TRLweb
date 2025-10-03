@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { RiBarChartBoxLine, RiFileListLine } from "react-icons/ri"
 
 import Layout from "../components/layout"
@@ -26,6 +26,52 @@ export const pageQuery = graphql`
 `
 
 // Sample data representing NCEA Year 11 exam results and teachers' teaching years
+// This data simulates what would be fetched from Kaggle API
+// 
+// KAGGLE API INTEGRATION GUIDE:
+// ==============================
+// For production use, fetch from Kaggle datasets using the kaggle-node package:
+//
+// 1. Install: npm install kaggle-node
+// 2. Setup Kaggle credentials in .kaggle/kaggle.json:
+//    {
+//      "username": "your_kaggle_username",
+//      "key": "your_api_key"
+//    }
+//
+// 3. Example code to fetch datasets:
+//    ```javascript
+//    import { KaggleApi } from 'kaggle-node';
+//    
+//    const fetchKaggleData = async () => {
+//      try {
+//        const kaggle = new KaggleApi({
+//          username: process.env.KAGGLE_USERNAME,
+//          key: process.env.KAGGLE_API_KEY
+//        });
+//        
+//        // Download dataset
+//        await kaggle.datasets.download({
+//          ownerSlug: 'dataset-owner',
+//          datasetSlug: 'student-performance-dataset'
+//        });
+//        
+//        // Process the downloaded CSV/JSON data
+//        // Transform it to match the structure below
+//      } catch (error) {
+//        console.error('Error fetching Kaggle data:', error);
+//      }
+//    };
+//    ```
+//
+// 4. Recommended Kaggle datasets:
+//    - "Student Performance Dataset"
+//    - "Teacher Experience and Student Achievement"
+//    - "Education Quality Indicators"
+//
+// 5. For server-side data fetching in Gatsby, use gatsby-node.js or 
+//    implement a serverless function to fetch data at build time
+//
 const sampleData = [
   { teachingYears: 1, examScore: 45, result: "Not Achieved" },
   { teachingYears: 1, examScore: 52, result: "Achieved" },
@@ -112,11 +158,141 @@ const DecisionTreePage = ({ data }) => {
   const { frontmatter, html } = markdownRemark
   const [tree, setTree] = useState(null)
   const [selectedNode, setSelectedNode] = useState(null)
+  const networkRef = useRef(null)
+  const containerRef = useRef(null)
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   useEffect(() => {
     const builtTree = buildDecisionTree()
     setTree(builtTree)
   }, [])
+
+  // Create vis.js network visualization
+  useEffect(() => {
+    if (!tree || !containerRef.current || !isClient) return
+
+    // Dynamically import vis-network to avoid SSR issues
+    import('vis-network/standalone').then(({ Network }) => {
+      // Convert decision tree to vis.js network format
+      const nodes = []
+      const edges = []
+      let nodeId = 0
+
+      const convertTreeToNetwork = (node, parentId = null, position = "root", level = 0) => {
+        const currentId = nodeId++
+        
+        if (node.isLeaf()) {
+          nodes.push({
+            id: currentId,
+            label: `${node.value.prediction}\nAvg: ${node.value.avgScore}\nStudents: ${node.value.count}`,
+            level: level,
+            color: {
+              background: '#10b981',
+              border: '#059669',
+              highlight: {
+                background: '#34d399',
+                border: '#059669'
+              }
+            },
+            shape: 'box',
+            font: { color: 'white', size: 14 }
+          })
+        } else {
+          nodes.push({
+            id: currentId,
+            label: `Teaching Years\n≤ ${node.threshold}?`,
+            level: level,
+            color: {
+              background: '#3b82f6',
+              border: '#2563eb',
+              highlight: {
+                background: '#60a5fa',
+                border: '#2563eb'
+              }
+            },
+            shape: 'ellipse',
+            font: { color: 'white', size: 14 }
+          })
+        }
+
+        if (parentId !== null) {
+          edges.push({
+            from: parentId,
+            to: currentId,
+            label: position === 'left' ? 'Yes' : position === 'right' ? 'No' : '',
+            font: { size: 12, color: '#666' },
+            arrows: 'to',
+            color: { color: '#999' }
+          })
+        }
+
+        if (!node.isLeaf()) {
+          if (node.left) convertTreeToNetwork(node.left, currentId, 'left', level + 1)
+          if (node.right) convertTreeToNetwork(node.right, currentId, 'right', level + 1)
+        }
+      }
+
+      convertTreeToNetwork(tree)
+
+      const networkData = {
+        nodes: nodes,
+        edges: edges
+      }
+
+      const options = {
+        layout: {
+          hierarchical: {
+            direction: 'UD',
+            sortMethod: 'directed',
+            levelSeparation: 150,
+            nodeSpacing: 200
+          }
+        },
+        physics: {
+          enabled: false
+        },
+        edges: {
+          smooth: {
+            type: 'cubicBezier',
+            forceDirection: 'vertical'
+          }
+        },
+        interaction: {
+          hover: true,
+          navigationButtons: true,
+          keyboard: true
+        }
+      }
+
+      if (networkRef.current) {
+        networkRef.current.destroy()
+      }
+
+      networkRef.current = new Network(containerRef.current, networkData, options)
+
+      networkRef.current.on('click', function(params) {
+        if (params.nodes.length > 0) {
+          const nodeId = params.nodes[0]
+          const node = nodes.find(n => n.id === nodeId)
+          if (node) {
+            setSelectedNode(node.label)
+          }
+        }
+      })
+    }).catch(err => {
+      console.error('Failed to load vis-network:', err)
+    })
+
+    return () => {
+      if (networkRef.current) {
+        networkRef.current.destroy()
+      }
+    }
+  }, [tree, isClient])
 
   // Calculate statistics from sample data
   const stats = {
@@ -132,41 +308,8 @@ const DecisionTreePage = ({ data }) => {
   }
 
   const renderTreeNode = (node, level = 0, position = "root") => {
-    if (!node) return null
-
-    if (node.isLeaf()) {
-      return (
-        <div
-          key={`leaf-${level}-${position}`}
-          sx={dtStyles.leafNode}
-          onClick={() => setSelectedNode(node.value)}
-        >
-          <div sx={dtStyles.nodeContent}>
-            <strong>Prediction: {node.value.prediction}</strong>
-            <div>Avg Score: {node.value.avgScore}</div>
-            <div>Students: {node.value.count}</div>
-          </div>
-        </div>
-      )
-    }
-
-    return (
-      <div key={`node-${level}-${position}`} sx={dtStyles.treeNode}>
-        <div sx={dtStyles.decisionNode}>
-          <strong>Teaching Years ≤ {node.threshold}?</strong>
-        </div>
-        <div sx={dtStyles.branches}>
-          <div sx={dtStyles.branch}>
-            <div sx={dtStyles.branchLabel}>Yes</div>
-            {renderTreeNode(node.left, level + 1, "left")}
-          </div>
-          <div sx={dtStyles.branch}>
-            <div sx={dtStyles.branchLabel}>No</div>
-            {renderTreeNode(node.right, level + 1, "right")}
-          </div>
-        </div>
-      </div>
-    )
+    // This function is no longer used - kept for backward compatibility
+    return null
   }
 
   return (
@@ -185,6 +328,14 @@ const DecisionTreePage = ({ data }) => {
         {/* Statistics Overview */}
         <div sx={dtStyles.section}>
           <h3><RiBarChartBoxLine /> Dataset Statistics</h3>
+          <div sx={dtStyles.dataSourceInfo}>
+            <p>
+              <strong>Data Source:</strong> This analysis uses sample data that simulates student 
+              performance and teacher information. In a production environment, this data would be 
+              fetched from Kaggle datasets using the Kaggle API (e.g., "Student Performance Dataset", 
+              "Teacher Experience and Student Achievement").
+            </p>
+          </div>
           <div sx={dtStyles.statsGrid}>
             <div sx={dtStyles.statCard}>
               <div sx={dtStyles.statLabel}>Total Students</div>
@@ -215,16 +366,33 @@ const DecisionTreePage = ({ data }) => {
 
         {/* Decision Tree Visualization */}
         <div sx={dtStyles.section}>
-          <h3><RiFileListLine /> Decision Tree Model</h3>
+          <h3><RiFileListLine /> Decision Tree Model (Interactive Visualization)</h3>
           <div sx={dtStyles.treeContainer}>
             <div sx={dtStyles.treeExplanation}>
               <p>
                 This decision tree analyzes the relationship between teachers' experience 
                 (teaching years) and Year 11 NCEA exam results. The tree splits the data 
-                based on teaching experience to predict student performance.
+                based on teaching experience to predict student performance. Click on nodes 
+                to explore the tree structure.
               </p>
             </div>
-            {tree && renderTreeNode(tree)}
+            <div 
+              ref={containerRef} 
+              id="vis-network-container"
+              style={{
+                width: '100%',
+                height: '600px',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
+                backgroundColor: '#fafafa'
+              }}
+            />
+            {selectedNode && (
+              <div sx={dtStyles.selectedNodeInfo}>
+                <strong>Selected Node:</strong>
+                <pre>{selectedNode}</pre>
+              </div>
+            )}
           </div>
         </div>
 
@@ -319,6 +487,18 @@ const dtStyles = {
       color: "primary",
     },
   },
+  dataSourceInfo: {
+    padding: 3,
+    backgroundColor: "muted",
+    borderRadius: 1,
+    marginBottom: 3,
+    borderLeft: "4px solid",
+    borderLeftColor: "secondary",
+    p: {
+      margin: 0,
+      lineHeight: 1.6,
+    },
+  },
   statsGrid: {
     display: "grid",
     gridTemplateColumns: ["1fr", "repeat(3, 1fr)"],
@@ -368,6 +548,31 @@ const dtStyles = {
     padding: 3,
     backgroundColor: "background",
     borderRadius: 1,
+  },
+  visNetwork: {
+    width: "100%",
+    height: "600px",
+    border: "1px solid",
+    borderColor: "borderColor",
+    borderRadius: 1,
+    backgroundColor: "#fafafa",
+  },
+  selectedNodeInfo: {
+    marginTop: 3,
+    padding: 3,
+    backgroundColor: "muted",
+    borderRadius: 1,
+    borderLeft: "4px solid",
+    borderLeftColor: "primary",
+    pre: {
+      margin: 0,
+      marginTop: 2,
+      padding: 2,
+      backgroundColor: "background",
+      borderRadius: 1,
+      fontSize: 1,
+      whiteSpace: "pre-wrap",
+    },
   },
   treeExplanation: {
     marginBottom: 4,
