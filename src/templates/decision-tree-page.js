@@ -27,9 +27,51 @@ export const pageQuery = graphql`
 
 // Sample data representing NCEA Year 11 exam results and teachers' teaching years
 // This data simulates what would be fetched from Kaggle API
-// For production use: fetch from Kaggle datasets like:
-// - "Student Performance Dataset" 
-// - "Teacher Experience and Student Achievement"
+// 
+// KAGGLE API INTEGRATION GUIDE:
+// ==============================
+// For production use, fetch from Kaggle datasets using the kaggle-node package:
+//
+// 1. Install: npm install kaggle-node
+// 2. Setup Kaggle credentials in .kaggle/kaggle.json:
+//    {
+//      "username": "your_kaggle_username",
+//      "key": "your_api_key"
+//    }
+//
+// 3. Example code to fetch datasets:
+//    ```javascript
+//    import { KaggleApi } from 'kaggle-node';
+//    
+//    const fetchKaggleData = async () => {
+//      try {
+//        const kaggle = new KaggleApi({
+//          username: process.env.KAGGLE_USERNAME,
+//          key: process.env.KAGGLE_API_KEY
+//        });
+//        
+//        // Download dataset
+//        await kaggle.datasets.download({
+//          ownerSlug: 'dataset-owner',
+//          datasetSlug: 'student-performance-dataset'
+//        });
+//        
+//        // Process the downloaded CSV/JSON data
+//        // Transform it to match the structure below
+//      } catch (error) {
+//        console.error('Error fetching Kaggle data:', error);
+//      }
+//    };
+//    ```
+//
+// 4. Recommended Kaggle datasets:
+//    - "Student Performance Dataset"
+//    - "Teacher Experience and Student Achievement"
+//    - "Education Quality Indicators"
+//
+// 5. For server-side data fetching in Gatsby, use gatsby-node.js or 
+//    implement a serverless function to fetch data at build time
+//
 const sampleData = [
   { teachingYears: 1, examScore: 45, result: "Not Achieved" },
   { teachingYears: 1, examScore: 52, result: "Achieved" },
