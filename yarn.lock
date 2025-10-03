@@ -3366,7 +3366,7 @@ axe-core@^4.10.0:
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.10.3.tgz"
   integrity sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==
 
-axios@^1.6.4:
+axios@^1.12.2, axios@^1.6.4, axios@^1.7.2:
   version "1.12.2"
   resolved "https://registry.npmjs.org/axios/-/axios-1.12.2.tgz"
   integrity sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==
@@ -8299,6 +8299,13 @@ jwt-decode@^3.0.0:
   version "3.1.2"
   resolved "https://registry.npmjs.org/jwt-decode/-/jwt-decode-3.1.2.tgz"
   integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
+kaggle-node@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/kaggle-node/-/kaggle-node-1.1.2.tgz"
+  integrity sha512-T1JKlnweTp5hYZyDHBZ5c2ET5qsJkpF/w7ajwTfxm3N69g/gs+Kjp3MRAHk+tXvU3INzMqrJc4zQARF0Vawjhg==
+  dependencies:
+    axios "^1.7.2"
 
 keyv@^4.0.0, keyv@^4.5.3:
   version "4.5.4"
@@ -13660,6 +13667,11 @@ vfile@^4.0.0:
     is-buffer "^2.0.0"
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
+
+vis-network@^10.0.2:
+  version "10.0.2"
+  resolved "https://registry.npmjs.org/vis-network/-/vis-network-10.0.2.tgz"
+  integrity sha512-qPl8GLYBeHEFqiTqp4VBbYQIJ2EA8KLr7TstA2E8nJxfEHaKCU81hQLz7hhq11NUpHbMaRzBjW5uZpVKJ45/wA==
 
 warning@^3.0.0:
   version "3.0.0"
