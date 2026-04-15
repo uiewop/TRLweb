@@ -113,7 +113,11 @@ class BlogIndex extends React.Component {
         <Seo
           title={"Blog — Page " + currentPage + " of " + numPages}
           description={
-            "Stackrole base blog page " + currentPage + " of " + numPages
+            "Translearn blog archive page " +
+            currentPage +
+            " of " +
+            numPages +
+            ", featuring updates on education technology, blended learning, and Canvas LMS."
           }
         />
         <h1>Blog</h1>
