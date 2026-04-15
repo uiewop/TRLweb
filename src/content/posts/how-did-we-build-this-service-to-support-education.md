@@ -10,7 +10,7 @@ We would like to share how did we build up our service online and take the chanc
 
 # Online presence
 
-I guess everyone knows [Github](https://github.com/). It is our platform to host the source code of our website <https://www.translearn.ac.nz>. On the top of it, [Netlify](https://www.netlify.com/) helps us build and host our website, based on a GatsbyJS template by [Stackrole.com](https://614021ca64c5930008ad7899--quizzical-jennings-af1411.netlify.app/).
+I guess everyone knows [Github](https://github.com/). It is our platform to host the source code of our website <https://www.translearn.ac.nz>. On the top of it, [Netlify](https://www.netlify.com/) helps us build and host our website.
 
 # **Membership management**
 

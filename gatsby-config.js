@@ -44,7 +44,6 @@ module.exports = {
               maxWidth: 1024,
               showCaptions: true,
               linkImagesToOriginal: false,
-              tracedSVG: true,
               loading: "lazy",
             },
           },
@@ -98,8 +97,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Foundation`,
-        short_name: `Foundation`,
+        name: `Translearn`,
+        short_name: `Translearn`,
         start_url: `/`,
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,

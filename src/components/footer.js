@@ -1,7 +1,5 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Link } from "gatsby"
-import { RiHeart2Line } from "react-icons/ri"
 
 const Footer = () => (
   <footer
@@ -11,9 +9,7 @@ const Footer = () => (
     }}
   >
     <div className="container">
-      <p>
-        © Translearn 2025
-      </p>
+      <p>© Translearn 2026</p>
     </div>
   </footer>
 )
