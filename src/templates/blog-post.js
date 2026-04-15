@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from "react"
 import { jsx } from "theme-ui"
 import { Link, graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
@@ -83,14 +84,6 @@ const Post = ({ data, pageContext }) => {
 
   return (
     <Layout className="page">
-      <Seo
-        title={frontmatter.title}
-        description={
-          frontmatter.description ? frontmatter.description : excerpt
-        }
-        image={Image}
-        article={true}
-      />
       <article className="blog-post">
         <header className="featured-banner">
           <section className="article-header">
@@ -120,6 +113,23 @@ const Post = ({ data, pageContext }) => {
 
 export default Post
 
+export const Head = ({ data, location }) => {
+  const { frontmatter, excerpt } = data.markdownRemark
+
+  return (
+    <>
+      <html lang="en-US" />
+      <Seo
+        title={frontmatter.title}
+        description={frontmatter.description ? frontmatter.description : excerpt}
+        image={frontmatter.featuredImage?.publicURL}
+        article={true}
+        pathname={location.pathname}
+      />
+    </>
+  )
+}
+
 export const pageQuery = graphql`
   query BlogPostQuery($id: String!) {
     markdownRemark(id: { eq: $id }) {
@@ -132,6 +142,7 @@ export const pageQuery = graphql`
         title
         description
         featuredImage {
+          publicURL
           childImageSharp {
             gatsbyImageData(layout: FULL_WIDTH)
           }

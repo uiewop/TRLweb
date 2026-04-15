@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from "react"
 import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
 import { RiSendPlane2Line } from "react-icons/ri"
@@ -30,10 +31,6 @@ const Contact = ({ data }) => {
 
   return (
     <Layout className="contact-page" sx={contactStyles.contactPage}>
-      <Seo
-        title={frontmatter.title}
-        description={frontmatter.title + " " + site.siteMetadata.title}
-      />
       <div className="wrapper">
         <h1>{frontmatter.title}</h1>
         <div
@@ -99,6 +96,22 @@ const Contact = ({ data }) => {
 }
 
 export default Contact
+
+export const Head = ({ data, location }) => {
+  const { markdownRemark, site } = data
+  const { frontmatter } = markdownRemark
+
+  return (
+    <>
+      <html lang="en-US" />
+      <Seo
+        title={frontmatter.title}
+        description={frontmatter.title + " " + site.siteMetadata.title}
+        pathname={location.pathname}
+      />
+    </>
+  )
+}
 
 const contactStyles = {
   contactPage: {

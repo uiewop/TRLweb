@@ -7,7 +7,6 @@ import Layout from "../components/layout"
 
 const Thanks = () => (
   <Layout className="thanks-page">
-    <Seo title="Thank you" />
     <div
       className="wrapper"
       style={{
@@ -31,3 +30,10 @@ const Thanks = () => (
 )
 
 export default Thanks
+
+export const Head = ({ location }) => (
+  <>
+    <html lang="en-US" />
+    <Seo title="Thank you" pathname={location.pathname} />
+  </>
+)

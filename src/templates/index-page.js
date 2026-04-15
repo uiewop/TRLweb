@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from "react"
 import { jsx } from "theme-ui"
 import { graphql, Link } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
@@ -196,7 +197,6 @@ const HomePage = ({ data }) => {
   })
   return (
     <Layout>
-      <Seo />
       <div className="home-banner grids col-1 sm-2">
         <div>
           <h1 className="title">{frontmatter.title}</h1>
@@ -251,3 +251,10 @@ const HomePage = ({ data }) => {
 }
 
 export default HomePage
+
+export const Head = ({ location }) => (
+  <>
+    <html lang="en-US" />
+    <Seo pathname={location.pathname} />
+  </>
+)

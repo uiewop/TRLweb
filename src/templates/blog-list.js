@@ -110,16 +110,6 @@ class BlogIndex extends React.Component {
 
     return (
       <Layout className="blog-page">
-        <Seo
-          title={"Blog — Page " + currentPage + " of " + numPages}
-          description={
-            "Translearn blog archive page " +
-            currentPage +
-            " of " +
-            numPages +
-            ", featuring updates on education technology, blended learning, and Canvas LMS."
-          }
-        />
         <h1>Blog</h1>
         <div className="grids col-1 sm-2 lg-3">{posts}</div>
         <Pagination {...props} />
@@ -129,3 +119,20 @@ class BlogIndex extends React.Component {
 }
 
 export default BlogIndex
+
+export const Head = ({ pageContext, location }) => (
+  <>
+    <html lang="en-US" />
+    <Seo
+      title={"Blog — Page " + pageContext.currentPage + " of " + pageContext.numPages}
+      description={
+        "Translearn blog archive page " +
+        pageContext.currentPage +
+        " of " +
+        pageContext.numPages +
+        ", featuring updates on education technology, blended learning, and Canvas LMS."
+      }
+      pathname={location.pathname}
+    />
+  </>
+)
