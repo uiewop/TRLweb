@@ -15,6 +15,7 @@
     "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "lint": "eslint .",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -52,7 +53,11 @@
     "theme-ui": "^0.17.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
     "baseline-browser-mapping": "^2.10.19",
-    "caniuse-lite": "^1.0.30001788"
+    "caniuse-lite": "^1.0.30001788",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^15.15.0"
   }
 }

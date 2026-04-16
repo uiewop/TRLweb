@@ -8,7 +8,7 @@ const Theme = () => {
   return (
     <div sx={themeStyles.modeOption}>
       <button
-        onClick={e => {
+        onClick={() => {
           setColorMode(colorMode === "default" ? "dark" : "default")
         }}
       >

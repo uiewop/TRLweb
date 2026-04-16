@@ -24,7 +24,7 @@ const query = graphql`
   }
 `
 
-const Layout = ({ children, className, props }) => {
+const Layout = ({ children, className }) => {
   const { site, siteSearchIndex } = useStaticQuery(query)
   const { siteTitle } = site.siteMetadata
 

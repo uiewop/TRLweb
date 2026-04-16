@@ -24,9 +24,9 @@ const SEO = ({ title, description, image, article, pathname = "/" }) => {
   return (
     <>
       <title>{titleTemplate.replace("%s", seo.title)}</title>
-      <link rel="alternate" href={seo.url} hreflang="en-us" />
-      <link rel="alternate" href={seo.url} hreflang="en" />
-      <link rel="alternate" href={seo.url} hreflang="x-default" />
+      <link rel="alternate" href={seo.url} hrefLang="en-us" />
+      <link rel="alternate" href={seo.url} hrefLang="en" />
+      <link rel="alternate" href={seo.url} hrefLang="x-default" />
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
       <meta
