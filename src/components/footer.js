@@ -1,7 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 
-const Footer = () => (
+const Footer = () => {
+  const currentYear = new Date().getFullYear()
+
+  return (
   <footer
     className="site-footer"
     sx={{
@@ -9,9 +12,10 @@ const Footer = () => (
     }}
   >
     <div className="container">
-      <p>© Translearn 2026</p>
+      <p>© Translearn {currentYear}</p>
     </div>
   </footer>
-)
+  )
+}
 
 export default Footer
